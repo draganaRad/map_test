@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/leaflet.css">
     <link rel="stylesheet" href="css/map.css">
     <script src="js/leaflet.js"></script>
-    <script src="js/TriCityGaps.js"></script>
+    <script src="js/data.js"></script>
     <style>
         body {
             padding: 0;
@@ -54,18 +54,18 @@
         };
 
         function onEachFeature(feature, layer) {
-        var popupContent = ""
-        if (feature.properties) {
-            if (feature.properties.location) {
-                popupContent += "<b>Location: </b>";
-                popupContent += feature.properties.location;
-            }
-            if (feature.properties.description) {
-                popupContent += "<br><b>Description: </b>";
-                popupContent += feature.properties.description;
-            }
-        }
-        layer.bindPopup(popupContent);
+            // var popupContent = ""
+            // if (feature.properties) {
+            //     if (feature.properties.location) {
+            //         popupContent += "<b>Location: </b>";
+            //         popupContent += feature.properties.location;
+            //     }
+            //     if (feature.properties.description) {
+            //         popupContent += "<br><b>Description: </b>";
+            //         popupContent += feature.properties.description;
+            //     }
+            // }
+            // layer.bindPopup(popupContent);
         }
 
         L.geoJSON(geojsonFeature, {
