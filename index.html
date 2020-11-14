@@ -18,14 +18,50 @@
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-96, 37.8],
-        zoom: 3
+        center:  [-0.066985, 51.503363],
+        zoom: 9
     });
 
-    var popup = new mapboxgl.Popup({ closeOnClick: false })
-        .setLngLat([-96, 37.8])
-        .setHTML('<h1>Hello World!</h1>')
-        .addTo(map);
+map.on('load', function() {
+        map.addSource('routeThree', {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        [-0.066985, 51.503363],
+                        [-3.550610, 40.390555 ],
+                        [-77.140217, 38.801481],
+                        [-118.175979, 34.008447]
+                    ]
+                }
+            }
+        });
+        map.addLayer({
+            'id': 'routeThree',
+            'type': 'line',
+            'source': 'routeThree',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#04A5BD',
+                'line-width': 8
+            }
+        });
+   map.on('click', 'routeThree', function(e) {
+            new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML("<h2>This is the third line that will explain something</h2>")
+            .addTo(map);
+         
+         });
+     
+   
+    });
 </script>
 
 </body>
