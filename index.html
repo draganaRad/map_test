@@ -1,78 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TriCityGaps</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="css/leaflet.css">
-    <link rel="stylesheet" href="css/map.css">
-    <script src="js/leaflet.js"></script>
-    <script src="js/data.js"></script>
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
-        html, body, #map {
-            height: 100%;
-            width: 100%;
-        }
-    </style>
+<meta charset="utf-8" />
+<title>Display a popup</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
 </head>
 <body>
-    <div id="map"></div>
-    <script>
-        // Create variable to hold map element, give initial settings to map
-        var map = L.map("map", {center: [49.254667, -122.825015], zoom: 12});
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZHJhZ2FuYXJhZCIsImEiOiJja2VqMXdhdjYwcG1nMnNwaDF2NTB2dXo3In0.bygJ2mi6fQe9kUg_8HA34w';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-96, 37.8],
+        zoom: 3
+    });
 
-        // Add OpenStreetMap tile layer to map element
-        L.tileLayer(
-            'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                subdomains: 'abcd',
-                maxZoom: 19}
-        ).addTo(map);
-        // Add HUB TriCity committee attribution
-        map.attributionControl.addAttribution('<a href="http://wiki.bikehub.ca/committees/index.php?title=Tri-Cities_Committee_Wiki">Tri-Cities HUB Committee</a>');
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+        .setLngLat([-96, 37.8])
+        .setHTML('<h1>Hello World!</h1>')
+        .addTo(map);
+</script>
 
-
-        // add map title (box on bottom left)
-        let mapTitle = L.control({position: "bottomleft"});
-        mapTitle.onAdd = function() {
-            let div = L.DomUtil.create("div", "mapTitle");
-            div.innerHTML = 
-                '<p><b>Tri-Cities HUB Committee\'s Top Gaps</b></p>'
-            return div;
-        };
-
-        mapTitle.addTo(map)
-
-        // 
-        var gapStyle = {
-            "color": "#FF7F00", // darkOrange_color ("Paired")
-            "weight": 5,
-            "opacity": 0.5
-        };
-
-        function onEachFeature(feature, layer) {
-            // var popupContent = ""
-            // if (feature.properties) {
-            //     if (feature.properties.location) {
-            //         popupContent += "<b>Location: </b>";
-            //         popupContent += feature.properties.location;
-            //     }
-            //     if (feature.properties.description) {
-            //         popupContent += "<br><b>Description: </b>";
-            //         popupContent += feature.properties.description;
-            //     }
-            // }
-            // layer.bindPopup(popupContent);
-        }
-
-        L.geoJSON(geojsonFeature, {
-            onEachFeature: onEachFeature,
-            style: gapStyle
-        }).addTo(map);
-
-    </script>
 </body>
 </html>
